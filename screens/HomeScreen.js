@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { SafeAreaView, ScrollView, View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 function HomeScreen({ navigation }) {
   // Function to handle press on a sport card
@@ -9,29 +9,41 @@ function HomeScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>Choose Your Sport</Text>
-      <TouchableOpacity style={styles.card} onPress={() => handlePress('Baseball')}>
-        <Image source={require('../assets/images/baseball.png')} style={styles.image} />
-        <Text style={styles.cardText}>Baseball</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.card} onPress={() => handlePress('Football')}>
-        <Image source={require('../assets/images/football.jpg')} style={styles.image} />
-        <Text style={styles.cardText}>Football</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.card} onPress={() => handlePress('Lacrosse')}>
-        <Image source={require('../assets/images/lacrosse.png')} style={styles.image} />
-        <Text style={styles.cardText}>Lacrosse</Text>
-      </TouchableOpacity>
-      {/* Repeat TouchableOpacity block for other sports as needed */}
-    </View>
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <View style={styles.container}>
+          <Text style={styles.heading}>Choose Your Sport</Text>
+          <TouchableOpacity style={styles.card} onPress={() => handlePress('Baseball')}>
+            <Image source={require('../assets/images/baseball.png')} style={styles.image} />
+            <Text style={styles.cardText}>Baseball</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.card} onPress={() => handlePress('Football')}>
+            <Image source={require('../assets/images/football.jpg')} style={styles.image} />
+            <Text style={styles.cardText}>Football</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.card} onPress={() => handlePress('Lacrosse')}>
+            <Image source={require('../assets/images/lacrosse.png')} style={styles.image} />
+            <Text style={styles.cardText}>Lacrosse</Text>
+          </TouchableOpacity>
+          {/* Repeat TouchableOpacity block for other sports as needed */}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#f9f9f9', // Match the background color of the container
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   container: {
     flex: 1,
-    backgroundColor: '#f9f9f9',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -39,6 +51,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    marginTop: 20,
   },
   card: {
     width: 300,
