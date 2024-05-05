@@ -2,11 +2,14 @@ import React from 'react';
 import { SafeAreaView, ScrollView, View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 function HomeScreen({ navigation }) {
-  // Function to handle press on a sport card
+  // Log the navigation prop to see if it contains the expected routes
+  console.log(navigation);
+
   const handlePress = (sport) => {
-    // Here you could navigate to a specific screen based on the sport
-    console.log(`Navigating to details for ${sport}`);
+    // Navigate to the SportDetailScreen with the selected sport
+    navigation.navigate('SportDetail', { sport });
   };
+
 
   return (
     <SafeAreaView style={styles.safeArea}>
