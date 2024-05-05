@@ -1,8 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import HomeScreen from "../screens/HomeScreen";
-import ProfileScreen from "../screens/ProfileScreen";
+import { HomeStackNavigator, ProfileStackNavigator } from "./AppNavigator"; // Updated import path
 
 const Tab = createBottomTabNavigator();
 
@@ -10,47 +9,34 @@ function BottomNav() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
+        headerShown: false,
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-
           if (route.name === "Home") {
             iconName = focused ? "home" : "home-outline";
           } else if (route.name === "Profile") {
             iconName = focused ? "person" : "person-outline";
           } else if (route.name === "Logout") {
-            iconName = focused ? "log-out" : "log-out-outline"; // Using log-out icons
+            iconName = focused ? "log-out" : "log-out-outline";
           }
-
-          // Return the Icon component from Ionicons
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-
         tabBarActiveTintColor: "tomato",
         tabBarInactiveTintColor: "gray",
       })}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Home" component={HomeStackNavigator} />
+      <Tab.Screen name="Profile" component={ProfileStackNavigator} />
       <Tab.Screen
         name="Logout"
-        component={ProfileScreen} // Placeholder component, or you could have a dedicated screen for confirmation.
+        component={() => null}
         listeners={({ navigation }) => ({
           tabPress: (e) => {
-            e.preventDefault(); // Prevent the default action of navigating
-            // Insert your logout logic here, such as clearing user data or navigating to a login screen
+            e.preventDefault();
             console.log("Logging out...");
-            navigation.replace("Login"); // Redirect to login or another appropriate screen
+            navigation.navigate("Login");
           },
         })}
-        options={{
-          tabBarIcon: ({ focused, color, size }) => (
-            <Ionicons
-              name={focused ? "log-out" : "log-out-outline"}
-              size={size}
-              color={color}
-            />
-          ),
-        }}
       />
     </Tab.Navigator>
   );
